@@ -4,9 +4,15 @@ A single notebook that explores global alcohol consumption using open data from
 **Our World in Data** (based on WHO figures). Built as an IE University group
 capstone project.
 
-The **whole project** — loading, cleaning, analysis and the interactive charts —
-lives in one file: **`Global_Alcohol_Consumption_Explorer.ipynb`**. All values
-are measured in **litres of pure alcohol per person per year**.
+The project is available in **two forms** that share the same data and analysis:
+
+- **An interactive Streamlit dashboard** (`app.py`) — the main application,
+  which you can run locally or open as a live web app.
+- **A Colab / Jupyter notebook** (`Global_Alcohol_Consumption_Explorer.ipynb`) —
+  the whole project in one file, reproducing the same analysis and charts with
+  step-by-step explanations.
+
+All values are measured in **litres of pure alcohol per person per year**.
 
 ## Team
 
@@ -25,10 +31,9 @@ code, and the main findings.
 2. **How has alcohol consumption changed over time?**
 3. **Which beverage type – beer, wine or spirits – dominates in each country?**
 
-## What the notebook does
+## What it does
 
-Run the notebook from top to bottom. It is organised into three sections, the
-same way a dashboard would be:
+The dashboard (and the notebook) are organised into three sections:
 
 1. **Overview** – a world map of total consumption for a chosen year, the top 10
    countries, and headline statistics (world average, highest, lowest).
@@ -60,7 +65,10 @@ pure alcohol per person per year):
 ```
 global-alcohol-explorer/
 ├── data/                                       # the 4 raw CSV files (never modified)
-├── Global_Alcohol_Consumption_Explorer.ipynb   # the whole project in one notebook
+├── app.py                                      # the Streamlit dashboard (main application)
+├── data_loader.py                              # loads and cleans the data (used by app.py)
+├── requirements.txt                            # libraries needed to run the dashboard
+├── Global_Alcohol_Consumption_Explorer.ipynb   # the same project as a Colab notebook
 ├── .gitignore
 └── README.md                                   # this file
 ```
@@ -76,7 +84,7 @@ Four CSV files in `data/`, all with the columns `Entity, Code, Year, <value>`:
 | `wine-consumption-per-capita.csv` | wine | 1960–2022 |
 | `spirits-consumption-per-person.csv` | spirits | 1960–2022 |
 
-### Cleaning steps (inside the notebook)
+### Cleaning steps
 
 - **Data-quality check:** we inspected all four files for missing values and
   duplicate rows. The data was already complete — **no missing values and no
@@ -94,11 +102,12 @@ The raw CSV files themselves are **never modified**.
 
 - **Python** – the programming language used for the whole project.
 - **Pandas** – loading, cleaning, merging and analysing the data.
+- **Streamlit** – builds the interactive dashboard (the main application).
 - **Plotly** – the interactive charts (world map, bar charts, line charts).
-- **Jupyter / Google Colab** – runs the notebook.
+- **Jupyter / Google Colab** – runs the notebook version.
 
-Google Colab already includes Pandas and Plotly. To run the notebook on your own
-machine instead, install them with `pip install pandas plotly jupyter`.
+The exact versions for the dashboard are pinned in `requirements.txt`. Google
+Colab already includes Pandas and Plotly for the notebook.
 
 ## Why Pandas (and not PySpark)
 
@@ -149,19 +158,23 @@ If we continued the project, we could:
 
 ## How to run
 
-### Option 1 — Google Colab (easiest)
+### The dashboard (Streamlit app)
 
-1. Go to <https://colab.research.google.com>.
-2. Upload `Global_Alcohol_Consumption_Explorer.ipynb` (**File ▸ Upload
-   notebook**), or open it directly from GitHub.
-3. Choose **Runtime ▸ Run all**. The notebook automatically downloads the data
+**Live version:** _add your Streamlit Community Cloud URL here once deployed._
+
+**Run it locally (PyCharm or terminal):**
+
+1. Install the libraries: `pip install -r requirements.txt`.
+2. From the project folder, start it **from the terminal** (not the plain Run
+   button): `streamlit run app.py`.
+3. It opens in your browser at <http://localhost:8501>.
+
+### The notebook (Google Colab)
+
+1. Open it in Colab:
+   <https://colab.research.google.com/github/nityaan1/global-alcohol-explorer/blob/main/Global_Alcohol_Consumption_Explorer.ipynb>
+2. Choose **Runtime ▸ Run all**. The notebook automatically downloads the data
    from GitHub and shows every chart inline.
-
-### Option 2 — On your own machine (PyCharm or Jupyter)
-
-1. Install the libraries: `pip install pandas plotly jupyter`.
-2. Keep the `data/` folder next to the notebook.
-3. Open the notebook and run all cells. It will use the local `data/` folder.
 
 ## Data source
 
