@@ -1,10 +1,23 @@
 # Global Alcohol Consumption Explorer
 
-A simple interactive dashboard that explores global alcohol consumption using
-open data from **Our World in Data** (based on WHO figures). Built as an
-IE University group capstone project.
+A single notebook that explores global alcohol consumption using open data from
+**Our World in Data** (based on WHO figures). Built as an IE University group
+capstone project.
 
-All values are measured in **litres of pure alcohol per person per year**.
+The **whole project** — loading, cleaning, analysis and the interactive charts —
+lives in one file: **`Global_Alcohol_Consumption_Explorer.ipynb`**. All values
+are measured in **litres of pure alcohol per person per year**.
+
+## Team
+
+Group members:
+
+- Nityaan
+- Oscar
+- Nico
+
+All members contributed to the overall solution and understand the data, the
+code, and the main findings.
 
 ## Questions this project answers
 
@@ -12,28 +25,44 @@ All values are measured in **litres of pure alcohol per person per year**.
 2. **How has alcohol consumption changed over time?**
 3. **Which beverage type – beer, wine or spirits – dominates in each country?**
 
-## The dashboard
+## What the notebook does
 
-The app has three sections (chosen from the sidebar):
+Run the notebook from top to bottom. It is organised into three sections, the
+same way a dashboard would be:
 
-1. **Overview** – pick a year and see a world map of total consumption, the top
-   10 countries, and headline statistics (world average, highest, lowest).
-2. **Country Explorer** – pick a country and see its total-consumption trend
-   (2000–2020), its beer/wine/spirits history (1960–2022), and its most recent
-   drink mix.
+1. **Overview** – a world map of total consumption for a chosen year, the top 10
+   countries, and headline statistics (world average, highest, lowest).
+2. **Country Explorer** – one country's total-consumption trend (2000–2020), its
+   beer/wine/spirits history (1960–2022), and its most recent drink mix.
 3. **Beverage Analysis** – rank countries by a chosen drink, see which drink
-   dominates in the most countries, and view the global trend of each drink
-   over time.
+   dominates in the most countries, and view the global trend of each drink.
+
+In a few places you can change a simple variable (the year, the country, the
+drink) and re-run that cell to explore different views.
+
+## Key findings
+
+A few headline results taken directly from the data (all figures are litres of
+pure alcohol per person per year):
+
+- **Consumption varies widely across countries.** In 2020 the highest total
+  consumption was **Romania (about 16.8 L)** and the lowest was **Kuwait
+  (about 0.0 L)**, against a world average of roughly **4.9 L**.
+- **Beer is the most common leading drink.** In 2022, beer was the
+  most-consumed beverage type in **103** countries, spirits in **64**, and wine
+  in **20**.
+- **Different drinks lead in different places.** In 2022 the top country for
+  each drink was **Czechia (beer)**, **Portugal (wine)** and **Saint Lucia
+  (spirits)**.
 
 ## Project structure
 
 ```
 global-alcohol-explorer/
-├── data/                 # the 4 raw CSV files (never modified)
-├── data_loader.py        # loads and cleans the data (Pandas)
-├── app.py                # the Streamlit dashboard
-├── requirements.txt      # the libraries needed
-└── README.md             # this file
+├── data/                                       # the 4 raw CSV files (never modified)
+├── Global_Alcohol_Consumption_Explorer.ipynb   # the whole project in one notebook
+├── .gitignore
+└── README.md                                   # this file
 ```
 
 ## The data
@@ -47,8 +76,11 @@ Four CSV files in `data/`, all with the columns `Entity, Code, Year, <value>`:
 | `wine-consumption-per-capita.csv` | wine | 1960–2022 |
 | `spirits-consumption-per-person.csv` | spirits | 1960–2022 |
 
-### Cleaning steps (in `data_loader.py`)
+### Cleaning steps (inside the notebook)
 
+- **Data-quality check:** we inspected all four files for missing values and
+  duplicate rows. The data was already complete — **no missing values and no
+  duplicate Entity–Year rows** — so no rows had to be dropped or filled in.
 - Rename each long value column to a short name (`total`, `beer`, `wine`, `spirits`).
 - Merge the three beverage files into one table on `Entity, Code, Year`.
 - Separate real **countries** (3-letter ISO code, e.g. `FRA`) from regional
@@ -57,6 +89,16 @@ Four CSV files in `data/`, all with the columns `Entity, Code, Year, <value>`:
   and maps use countries only.
 
 The raw CSV files themselves are **never modified**.
+
+## Tools and technology
+
+- **Python** – the programming language used for the whole project.
+- **Pandas** – loading, cleaning, merging and analysing the data.
+- **Plotly** – the interactive charts (world map, bar charts, line charts).
+- **Jupyter / Google Colab** – runs the notebook.
+
+Google Colab already includes Pandas and Plotly. To run the notebook on your own
+machine instead, install them with `pip install pandas plotly jupyter`.
 
 ## Why Pandas (and not PySpark)
 
@@ -77,28 +119,49 @@ different data series with different year ranges and coverage. Therefore:
 - A value of `0` means "reported as zero" and cannot be distinguished from
   "not reported".
 
+## Conclusion
+
+The project set out to answer three questions, and the notebook answers all
+three:
+
+1. **Differences across countries** – consumption is very uneven (for example,
+   Romania near 16.8 L versus Kuwait near 0 L in 2020), which the world map and
+   top-10 rankings make easy to see.
+2. **Change over time** – the trend charts show how each country's total and
+   beverage consumption has moved since 1960 (beverages) and 2000 (total).
+3. **Which drink dominates** – beer leads in the largest number of countries,
+   followed by spirits and then wine.
+
+The main thing we learned is that careful data processing plus a few
+well-chosen charts can turn four raw CSV files into a clear, interactive story
+about global drinking patterns. The main limitation is that the total and
+beverage indicators are separate measures with different coverage, so they must
+be read side by side rather than added together.
+
+## Future improvements
+
+If we continued the project, we could:
+
+- Let the user compare two or more countries on the same chart.
+- Add more recent years as updated data becomes available.
+- Add a button to download the filtered data as a CSV.
+- Bring in population or income data to explore possible relationships.
+
 ## How to run
 
-1. Install the libraries (ideally inside a virtual environment or a PyCharm
-   project interpreter):
+### Option 1 — Google Colab (easiest)
 
-   ```
-   pip install -r requirements.txt
-   ```
+1. Go to <https://colab.research.google.com>.
+2. Upload `Global_Alcohol_Consumption_Explorer.ipynb` (**File ▸ Upload
+   notebook**), or open it directly from GitHub.
+3. Choose **Runtime ▸ Run all**. The notebook automatically downloads the data
+   from GitHub and shows every chart inline.
 
-2. From the project folder, start the app:
+### Option 2 — On your own machine (PyCharm or Jupyter)
 
-   ```
-   streamlit run app.py
-   ```
-
-3. The dashboard opens in your web browser.
-
-### Running in PyCharm
-
-Open the project folder in PyCharm, set a Python interpreter that has the
-libraries from `requirements.txt` installed, then either run the command above
-in the terminal or add a run configuration with `streamlit run app.py`.
+1. Install the libraries: `pip install pandas plotly jupyter`.
+2. Keep the `data/` folder next to the notebook.
+3. Open the notebook and run all cells. It will use the local `data/` folder.
 
 ## Data source
 
