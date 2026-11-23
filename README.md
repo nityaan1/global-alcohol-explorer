@@ -14,6 +14,8 @@ The project is available in **two forms** that share the same data and analysis:
 
 All values are measured in **litres of pure alcohol per person per year**.
 
+**▶ Live dashboard:** <https://global-alcohol-explorer-fqf95zk6dncjzmffgmmygp.streamlit.app/>
+
 ## Team
 
 Group members:
@@ -160,7 +162,7 @@ If we continued the project, we could:
 
 ### The dashboard (Streamlit app)
 
-**Live version:** _add your Streamlit Community Cloud URL here once deployed._
+**Live version:** <https://global-alcohol-explorer-fqf95zk6dncjzmffgmmygp.streamlit.app/>
 
 **Run it locally (PyCharm or terminal):**
 
